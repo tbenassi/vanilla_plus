@@ -27,12 +27,12 @@ jobs:
         with:
           java-version: ${{ matrix.java }}
           distribution: 'microsoft'
-      - name: make gradle wrapper executable
+      - name: make hot deposit gradle wrapper executable
         if: ${{ runner.os != 'Windows' }}
-        run: chmod +x ./gradlew
-      - name: build
-        run: ./gradlew build
-      - name: capture build artifacts
+        run: chmod +x ./hot_deposit/gradlew
+      - name: build hot deposit
+        run: ./hot_deposit/gradlew build
+      - name: capture hot deposit build artifacts
         if: ${{ runner.os == 'Linux' && matrix.java == '17' }} # Only upload artifacts built from latest java on one OS
         uses: actions/upload-artifact@v3
         with:
