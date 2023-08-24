@@ -26,7 +26,7 @@ import java.util.function.Function;
 
 @Environment(EnvType.CLIENT)
 public class PosUpdatableCheckboxWidget extends CheckboxWidget {
-    private static final Identifier TEXTURE_CUSTOM = new Identifier("hot-deposit", "textures/gui/checkbox-texture15x15.png");
+    private static final Identifier TEXTURE_CUSTOM = new Identifier("hot-deposit", "textures/gui/checkbox_texture.png");
     private static final int TEXT_COLOR = 14737632;
     private final boolean showMessage;
     private final long containerPos;
@@ -53,7 +53,7 @@ public class PosUpdatableCheckboxWidget extends CheckboxWidget {
         context.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
         RenderSystem.enableBlend();
 
-        context.drawTexture(TEXTURE_CUSTOM, getX(), getY(), this.isFocused() ? 15.0F : 0.0F, this.isChecked() ? 15.0F : 0.0F, this.width, this.height, 64, 64);
+        context.drawTexture(TEXTURE_CUSTOM, getX(), getY(), this.isHovered() ? 15.0F : 0.0F, this.isChecked() ? 15.0F : 0.0F, this.width, this.height, 64, 64);
         context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
         if (this.showMessage) {
