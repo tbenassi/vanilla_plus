@@ -1,4 +1,4 @@
-package io.github.tbenassi.com.mixin.client;
+package io.github.tbenassi.com.craftfromnearbycontainers.client.mixin;
 
 import net.minecraft.client.MinecraftClient;
 import org.spongepowered.asm.mixin.Mixin;

@@ -16,10 +16,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"io.github.tbenassi.com.ExampleMod"
+			"io.github.tbenassi.com.craftfromnearbycontainers.ExampleMod"
 		],
 		"client": [
-			"io.github.tbenassi.com.ExampleModClient"
+			"io.github.tbenassi.com.craftfromnearbycontainers.client.ExampleModClient"
 		]
 	},
 	"mixins": [

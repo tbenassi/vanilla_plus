@@ -1,4 +1,4 @@
-package io.github.tbenassi.com;
+package io.github.tbenassi.com.craftfromnearbycontainers;
 
 import net.fabricmc.api.ModInitializer;
 
