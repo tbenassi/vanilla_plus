@@ -1,8 +1,8 @@
 {
 	"schemaVersion": 1,
-	"id": "craft-from-nearby-storage",
+	"id": "real-infinity",
 	"version": "${version}",
-	"name": "Craft From Nearby Storage",
+	"name": "Real Infinity",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
 		"Me!"
@@ -12,25 +12,17 @@
 		"sources": "https://github.com/FabricMC/fabric-example-mod"
 	},
 	"license": "CC0-1.0",
-	"icon": "assets/craft-from-nearby-storage/icon.png",
+	"icon": "assets/real-infinity/icon.png",
 	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"io.github.tbenassi.com.craftfromnearbycontainers.CraftFromNearbyContainers"
-		],
-		"client": [
-			"io.github.tbenassi.com.craftfromnearbycontainers.client.CraftFromNearbyContainersClient"
-		]
-	},
 	"mixins": [
-		"craft-from-nearby-storage.mixins.json",
+		"real-infinity.mixins.json",
 		{
-			"config": "craft-from-nearby-storage.client.mixins.json",
+			"config": "real-infinity.client.mixins.json",
 			"environment": "client"
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.14.22",
+		"fabricloader": ">=0.14.25",
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"
