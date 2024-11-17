@@ -3,7 +3,6 @@ package io.github.tbenassi.com.hotdeposit.client.mixin;
 import io.github.tbenassi.com.hotdeposit.client.event.OnKeyCallback;
 import net.minecraft.client.Keyboard;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.util.ActionResult;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

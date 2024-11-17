@@ -4,7 +4,7 @@ import com.mojang.logging.LogUtils;
 import io.github.cottonmc.cotton.gui.widget.data.Vec2i;
 import io.github.tbenassi.com.hotdeposit.client.event.OnKeyCallback;
 import io.github.tbenassi.com.hotdeposit.client.event.SetScreenCallback;
-import io.github.tbenassi.com.hotdeposit.client.gui.PosUpdatableCheckboxWidget;
+import io.github.tbenassi.com.hotdeposit.client.gui.CustomCheckboxWidget;
 import io.github.tbenassi.com.hotdeposit.client.mixin.HandledScreenAccessor;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
@@ -25,6 +25,7 @@ import net.minecraft.client.network.ClientPlayerInteractionManager;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.AirBlockItem;
 import net.minecraft.item.Item;
@@ -134,31 +135,28 @@ public class HotDepositClient implements ClientModInitializer {
             int checkboxHeight = 15;
 
             if (isDoubleChest(blockEntity)) {
-                new PosUpdatableCheckboxWidget.Builder((HandledScreen<?>) screen)
-                        .setPos(screenWidth - 30, screenHeight - 230)
-                        .setSize(checkboxWidth, checkboxHeight)
-                        .setText(Text.of("Hot Deposit"))
-                        .setChecked(checked)
-                        .setContainerPos(blockPos.asLong())
-                        .setPosUpdater(parent -> getAbsolutePos(parent, -20, -108))
+                CustomCheckboxWidget.builder((HandledScreen<?>) screen, Text.of("Hot Deposit"))
+                        .pos(screenWidth - 30, screenHeight - 230)
+                        .size(checkboxWidth, checkboxHeight)
+                        .checked(checked)
+                        .callback((checkbox, isChecked) -> ClientState.toggleContainerChecked(blockPos.asLong(), isChecked))
+                        .posUpdater(parent -> getAbsolutePos(parent, -20, -108))
                         .build();
             } else if (blockEntity instanceof ShulkerBoxBlockEntity) {
-                new PosUpdatableCheckboxWidget.Builder((HandledScreen<?>) screen)
-                        .setPos(screenWidth - 30, screenHeight - 230)
-                        .setSize(checkboxWidth, checkboxHeight)
-                        .setText(Text.of("Hot Deposit"))
-                        .setChecked(checked)
-                        .setContainerPos(blockPos.asLong())
-                        .setPosUpdater(parent -> getAbsolutePos(parent, -20, -80))
+                CustomCheckboxWidget.builder((HandledScreen<?>) screen, Text.of("Hot Deposit"))
+                        .pos(screenWidth - 30, screenHeight - 230)
+                        .size(checkboxWidth, checkboxHeight)
+                        .checked(checked)
+                        .callback((checkbox, isChecked) -> ClientState.toggleContainerChecked(blockPos.asLong(), isChecked))
+                        .posUpdater(parent -> getAbsolutePos(parent, -20, -80))
                         .build();
             } else {
-                new PosUpdatableCheckboxWidget.Builder((HandledScreen<?>) screen)
-                        .setPos(screenWidth - 30, screenHeight - 230)
-                        .setSize(checkboxWidth, checkboxHeight)
-                        .setText(Text.of("Hot Deposit"))
-                        .setChecked(checked)
-                        .setContainerPos(blockPos.asLong())
-                        .setPosUpdater(parent -> getAbsolutePos(parent, -20, -81))
+                CustomCheckboxWidget.builder((HandledScreen<?>) screen, Text.of("Hot Deposit"))
+                        .pos(screenWidth - 30, screenHeight - 230)
+                        .size(checkboxWidth, checkboxHeight)
+                        .checked(checked)
+                        .callback((checkbox, isChecked) -> ClientState.toggleContainerChecked(blockPos.asLong(), isChecked))
+                        .posUpdater(parent -> getAbsolutePos(parent, -20, -81))
                         .build();
             }
         } catch (InterruptedException e) {
@@ -198,7 +196,7 @@ public class HotDepositClient implements ClientModInitializer {
 
                 // Get the player's position
                 Vec3d playerPos = player.getCameraPosVec(0);
-                var chestsInRange = getReachableContainers(world, playerPos, interactionManager);
+                var chestsInRange = getReachableContainers(world, playerPos, player);
                 if (chestsInRange.isEmpty()) {
                     LOGGER.warn("No chests in range");
                     return;
@@ -278,9 +276,9 @@ public class HotDepositClient implements ClientModInitializer {
         };
     }
 
-    public List<BlockPos> getReachableContainers(ClientWorld world, Vec3d playerPos, ClientPlayerInteractionManager interactionManager) {
+    public List<BlockPos> getReachableContainers(ClientWorld world, Vec3d playerPos, ClientPlayerEntity clientPlayerEntity) {
         // Get the player's surrounding container blocks
-        float reachDistance = interactionManager.getReachDistance();
+        float reachDistance = (float) clientPlayerEntity.getAttributeValue(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
         float squaredReachDistance = reachDistance * reachDistance;
         Box area = Utils.getBox(playerPos, reachDistance);
         return StreamSupport.stream(Utils.getBlocksInBox(area).spliterator(), false).map(BlockPos::toImmutable).filter(pos -> {

@@ -1,7 +1,6 @@
 package io.github.tbenassi.com.hotdeposit.client.mixin;
 
 import io.github.tbenassi.com.hotdeposit.client.HotDepositClient;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.*;
 import net.minecraft.client.network.ClientPlayerEntity;
