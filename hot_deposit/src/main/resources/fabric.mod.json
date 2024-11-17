@@ -3,9 +3,9 @@
 	"id": "hot-deposit",
 	"version": "${version}",
 	"name": "Hot Deposit",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A mod that allows you to deposit items into a chest by pressing a key.",
 	"authors": [
-		"Me!"
+		"tbenassi"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -23,10 +23,10 @@
 		"hot_deposit.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.22",
-		"minecraft": "~1.21.1",
-		"java": ">=17",
-		"fabric-api": "*"
+		"minecraft": "1.21.2 - 1.21.3",
+		"fabricloader": ">=0.16.9",
+		"fabric-api": "*",
+		"java": ">=21"
 	},
 	"suggests": {
 		"another-mod": "*"

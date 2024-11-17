@@ -278,7 +278,7 @@ public class HotDepositClient implements ClientModInitializer {
 
     public List<BlockPos> getReachableContainers(ClientWorld world, Vec3d playerPos, ClientPlayerEntity clientPlayerEntity) {
         // Get the player's surrounding container blocks
-        float reachDistance = (float) clientPlayerEntity.getAttributeValue(EntityAttributes.PLAYER_BLOCK_INTERACTION_RANGE);
+        float reachDistance = (float) clientPlayerEntity.getAttributeValue(EntityAttributes.BLOCK_INTERACTION_RANGE);
         float squaredReachDistance = reachDistance * reachDistance;
         Box area = Utils.getBox(playerPos, reachDistance);
         return StreamSupport.stream(Utils.getBlocksInBox(area).spliterator(), false).map(BlockPos::toImmutable).filter(pos -> {

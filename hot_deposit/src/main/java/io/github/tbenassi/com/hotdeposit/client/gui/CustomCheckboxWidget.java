@@ -15,6 +15,7 @@ import net.minecraft.client.gui.screen.narration.NarrationMessageBuilder;
 import net.minecraft.client.gui.screen.narration.NarrationPart;
 import net.minecraft.client.gui.tooltip.Tooltip;
 import net.minecraft.client.gui.widget.PressableWidget;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -88,13 +89,30 @@ public class CustomCheckboxWidget extends PressableWidget {
     public void renderWidget(DrawContext context, int mouseX, int mouseY, float delta) {
         posUpdater.ifPresent(updater -> setPos(updater.apply((HandledScreenAccessor) parent)));
         MinecraftClient minecraftClient = MinecraftClient.getInstance();
-        RenderSystem.enableDepthTest();
         TextRenderer textRenderer = minecraftClient.textRenderer;
-        context.setShaderColor(1.0F, 1.0F, 1.0F, this.alpha);
-        RenderSystem.enableBlend();
+        RenderSystem.enableDepthTest();
+        context.getMatrices().push();
 
-        context.drawTexture(TEXTURE_CUSTOM, getX(), getY(), this.isHovered() ? 15.0F : 0.0F, this.isChecked() ? 15.0F : 0.0F, this.width, this.height, 64, 64);
-        context.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        RenderSystem.enableBlend();
+        RenderSystem.defaultBlendFunc();
+
+        // Texture dimensions (assuming 64x64 texture atlas)
+        int textureWidth = 64;
+        int textureHeight = 64;
+
+        // Calculate the u/v coordinates based on the state
+        float u = this.isHovered() ? 15.0F : 0.0F;
+        float v = this.isChecked() ? 15.0F : 0.0F;
+
+        context.drawTexture(
+                RenderLayer::getGuiTextured,
+                TEXTURE_CUSTOM,
+                getX(), getY(),
+                u, v,
+                this.width, this.height,
+                textureWidth, textureHeight);
+
+        context.getMatrices().pop();
 
         if (this.showMessage) {
             var textX = getX() - 58;
