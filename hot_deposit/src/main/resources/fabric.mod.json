@@ -3,7 +3,7 @@
 	"id": "hot-deposit",
 	"version": "${version}",
 	"name": "Hot Deposit",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "A mod that allows you to deposit items into a chest by pressing a key.",
 	"authors": [
 		"Me!"
 	],
